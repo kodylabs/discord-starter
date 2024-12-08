@@ -20,12 +20,6 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H 192.168.1.37 >> ~/.ssh/known_hosts
 
-      - name: Deploy code to VM
+      - name: Pull latest changes on VM
         run: |
-          rsync -avz --delete --exclude '.env' ./ pims@192.168.1.37:/var/www/kodyborg/
-          ssh pims@192.168.1.37 "
-            export PATH=\$HOME/.bun/bin:\$PATH &&
-            cd /var/www/kodyborg &&
-            bun install &&
-            nohup bun run start > bot.log 2>&1 &
-          "
+          ssh pims@192.168.1.37 "cd /bot/kodyborg && git pull && bun install && nohup bun run start > bot.log 2>&1 &"
