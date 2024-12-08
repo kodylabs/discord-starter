@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     name: Deploy to Host Bot VM
-    runs-on: self-hosted # Utilise ton runner auto-hébergé
+    runs-on: self-hosted # Utilise ton runner auto-hébergér
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
