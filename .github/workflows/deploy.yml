@@ -34,4 +34,4 @@ jobs:
       - name: Deploy code to VM
         run: |
           rsync -avz --delete ./ pims@192.168.1.37:/var/www/kodyborg/
-          ssh pims@192.168.1.37 "cd /var/www/kodyborg && bun install && pm2 restart kodyborg"
+          ssh pims@192.168.1.37 "cd /var/www/kodyborg/ && bun install && pm2 restart kodyborg"
