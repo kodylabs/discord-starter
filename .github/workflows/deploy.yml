@@ -22,6 +22,7 @@ jobs:
 
       - name: Deploy code to VM
         run: |
+          rsync -avz --delete --exclude '.env' ./ pims@192.168.1.37:/var/www/kodyborg/
           ssh pims@192.168.1.37 "
             export PATH=\$HOME/.bun/bin:\$PATH &&
             cd /var/www/kodyborg &&
