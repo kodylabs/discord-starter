@@ -22,12 +22,21 @@ jobs:
 
       - name: Deploy code to VM
         run: |
-          rsync -avz --delete --exclude '.env' ./ pims@192.168.1.37:/var/www/kodyborg/
           ssh pims@192.168.1.37 "
-            export NVM_DIR=\$HOME/.nvm &&
-            [ -s \"\$NVM_DIR/nvm.sh\" ] && . \"\$NVM_DIR/nvm.sh\" &&
-            export PATH=\$HOME/.bun/bin:\$PATH:/home/pims/.nvm/versions/node/v22.12.0/bin &&
+            export PATH=\$HOME/.bun/bin:\$PATH &&
             cd /var/www/kodyborg &&
-            bun install &&
-            pm2 restart kodyborg || pm2 start ecosystem.config.cjs
+            pm2 delete kodyborg || true &&
+            pm2 start ecosystem.config.js
           "
+
+      # - name: Deploy code to VM
+      #   run: |
+      #     rsync -avz --delete --exclude '.env' ./ pims@192.168.1.37:/var/www/kodyborg/
+      #     ssh pims@192.168.1.37 "
+      #       export NVM_DIR=\$HOME/.nvm &&
+      #       [ -s \"\$NVM_DIR/nvm.sh\" ] && . \"\$NVM_DIR/nvm.sh\" &&
+      #       export PATH=\$HOME/.bun/bin:\$PATH:/home/pims/.nvm/versions/node/v22.12.0/bin &&
+      #       cd /var/www/kodyborg &&
+      #       bun install &&
+      #       pm2 restart kodyborg || pm2 start kodyborg
+      #     "
