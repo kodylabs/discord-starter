@@ -20,6 +20,17 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H 192.168.1.37 >> ~/.ssh/known_hosts
 
+
+      - name: Install PM2 on VM
+        run: |
+          ssh user@IP_VM "npm install -g pm2"
+
+      - name: Install bun on VM
+        run: |
+          ssh user@IP_VM "curl -fsSL https://bun.sh/install | bash"
+          ssh user@IP_VM "source ~/.bashrc" # Recharge l'environnement après l'installation
+
+
       - name: Deploy code to VM
         run: |
           rsync -avz --delete ./ pims@192.168.1.37:/var/www/kodyborg/
