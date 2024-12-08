@@ -27,6 +27,5 @@ jobs:
             export PATH=\$HOME/.bun/bin:\$PATH &&
             cd /var/www/kodyborg &&
             bun install &&
-            bun run start > bot.log 2>&1 &
+            nohup bun run start > bot.log 2>&1 &
           "
-
