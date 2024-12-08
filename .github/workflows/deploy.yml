@@ -22,7 +22,7 @@ jobs:
 
       - name: Deploy code to VM
         run: |
-          rsync -avz --delete ./ pims@192.168.1.37:/var/www/kodyborg/
+          rsync -avz --delete --exclude '.env' ./ pims@192.168.1.37:/var/www/kodyborg/
           ssh pims@192.168.1.37 "
             export NVM_DIR=\$HOME/.nvm &&
             [ -s \"\$NVM_DIR/nvm.sh\" ] && . \"\$NVM_DIR/nvm.sh\" &&
