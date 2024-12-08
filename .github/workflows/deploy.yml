@@ -1,0 +1,26 @@
+name: Deploy Bot to VM
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to Host Bot VM
+    runs-on: self-hosted # Utilise ton runner auto-hébergé
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H 192.168.1.37 >> ~/.ssh/known_hosts
+
+      - name: Deploy code to VM
+        run: |
+          rsync -avz --delete ./ pims@192.168.1.37:/var/www/kodyborg/
+          ssh pims@192.168.1.37 "cd /var/www/kodyborg && bun install && pm2 restart bot-discord"
