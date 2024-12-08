@@ -23,12 +23,12 @@ jobs:
 
       - name: Install PM2 on VM
         run: |
-          ssh user@IP_VM "npm install -g pm2"
+          ssh pims@192.168.1.37 "npm install -g pm2"
 
       - name: Install bun on VM
         run: |
-          ssh user@IP_VM "curl -fsSL https://bun.sh/install | bash"
-          ssh user@IP_VM "source ~/.bashrc" # Recharge l'environnement après l'installation
+          ssh pims@192.168.1.37 "curl -fsSL https://bun.sh/install | bash"
+          ssh pims@192.168.1.37 "source ~/.bashrc" # Recharge l'environnement après l'installation
 
 
       - name: Deploy code to VM
