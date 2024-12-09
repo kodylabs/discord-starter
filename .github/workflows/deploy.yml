@@ -20,6 +20,14 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H 192.168.1.37 >> ~/.ssh/known_hosts
 
+
+    # Ici tu peux utiliser l'action qui s'appelle : actions/checkout@v4 -> elle va DL ton code sur le runner. 
+    # - name : Chekout
+    #   uses: actions/checkout@v4
+    #
+    # - name : bun install
+    #   run : bun instsall && nohup bun run start > bot.log 2>&1 &
+
       - name: Pull latest changes on VM
         run: |
           ssh pims@192.168.1.37 "
