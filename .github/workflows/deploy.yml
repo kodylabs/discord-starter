@@ -34,3 +34,8 @@ jobs:
           cd /bot/kodyborg && 
           git pull && bun install && 
           nohup bun run start > bot.log 2>&1 &"
+
+#       - name: Pull latest changes on VM
+#        run: |
+#          ssh pims@192.168.1.37 "
+#          bun start"
