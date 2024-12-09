@@ -1,5 +1,3 @@
-name: Deploy Bot to VM
-
 on:
   push:
     branches:
@@ -8,10 +6,10 @@ on:
 jobs:
   deploy:
     name: Deploy to Host Bot VM
-    runs-on: self-hosted
+    runs-on: self-hosted # Utilise ton runner auto-hébergé
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up SSH
         run: |
@@ -20,14 +18,13 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H 192.168.1.37 >> ~/.ssh/known_hosts
 
-      - name: Pull latest changes on VM
+      - name: Copy files to VM
+        run: |
+          scp -r ./ pims@192.168.1.37:/bot/kodyborg/
+
+      - name: Install dependencies and start bot
         run: |
           ssh pims@192.168.1.37 "
-          cd /bot/kodyborg && 
-          git pull && bun install && 
-          nohup bun run start > bot.log 2>&1 &"
-
-#       - name: Pull latest changes on VM
-#        run: |
-#          ssh pims@192.168.1.37 "
-#          bun start"
+          cd /bot/kodyborg &&
+          bun install &&
+          nohup bun run start > bot.log 2>&1 && echo 'Bot started successfully!' || echo 'Failed to start bot'"

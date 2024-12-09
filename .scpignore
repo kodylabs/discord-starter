@@ -1,0 +1,1 @@
+scp -r --exclude=".git" --exclude="*.log" ./ pims@192.168.1.37:/bot/kodyborg/
