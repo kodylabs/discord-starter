@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     name: Deploy to Host Bot VM
-    runs-on: self-hosted # Utilise ton runner auto-hébergér
+    runs-on: self-hosted # Utilise ton runner auto-hébergé
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -22,4 +22,7 @@ jobs:
 
       - name: Pull latest changes on VM
         run: |
-          ssh pims@192.168.1.37 "cd /bot/kodyborg && git pull && bun install && nohup bun run start > bot.log 2>&1 &"
+          ssh pims@192.168.1.37 "
+          cd /bot/kodyborg && 
+          git pull && bun install && 
+          nohup bun run start > bot.log 2>&1 &"
